@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gwd\TopBar\Api\Data\UsersInterface" type="Gwd\TopBar\Model\Users"/>
+    <type name="Gwd\TopBar\Model\ResourceModel\Users\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">gwd_topbar_users</argument>
+            <argument name="eventPrefix" xsi:type="string">gwd_topbar_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">gwd_topbar_users_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Gwd\TopBar\Model\ResourceModel\Users</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gwd_topbar_users_listing_data_source" xsi:type="string">Gwd\TopBar\Model\ResourceModel\Users\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gwd_topbar_users_front_listing_data_source" xsi:type="string">Gwd\TopBar\Model\ResourceModel\Users\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

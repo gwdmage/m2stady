@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customcatalog_product_listing.customcatalog_product_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>product_columns</spinner>
+        <buttons>
+            <button name="add">
+                <url path="*/*/addproduct"/>
+                <class>primary</class>
+                <label translate="true">Add Product</label>
+            </button>
+        </buttons>
+        <deps>
+            <dep>customcatalog_product_listing.customcatalog_product_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="customcatalog_product_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="dataScope" xsi:type="string">filters.store_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider" name="customcatalog_product_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+        <massaction name="listing_massaction"
+                    component="Magento_Ui/js/grid/tree-massactions"
+                    class="\Magento\Catalog\Ui\Component\Product\MassAction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected products?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="customcatalog/custom/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="copywriteinfo" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <addField>true</addField>
+                <label translate="true">CopyWriteInfo</label>
+            </settings>
+        </column>
+        <column name="vpn" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <addField>true</addField>
+                <label translate="true">VPN</label>
+            </settings>
+        </column>
+        <column name="sku" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Gwd\CustomCatalog\Ui\Component\Listing\Product\Column\Action" sortOrder="999">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
